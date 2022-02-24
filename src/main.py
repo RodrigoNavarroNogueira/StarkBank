@@ -1,9 +1,36 @@
-from flask import Flask
-app = Flask(__name__)
+from datetime import datetime, timedelta
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+import starkbank
 
-if __name__ == "__main__":
-    app.run()
+from src.authentication import user
+
+starkbank.user = user
+
+invoices = starkbank.invoice.create([
+    starkbank.Invoice(
+        amount=248,
+        descriptions=[{'key': 'Arya', 'value': 'Not today'}],
+        discounts=[{'percentage': 10, 'due': datetime.now()+timedelta(days=10)}],
+        due=datetime.now()+timedelta(days=10),
+        expiration=123456789,
+        fine=2.5,
+        interest=1.3,
+        name="Ed Supremo",
+        tags=['New sword', 'Invoice #1234'],
+        tax_id="29.176.331/0001-69"
+    )
+])
+
+#for invoice in invoices:
+#   print(invoice)
+
+invoices = starkbank.invoice.query(
+    after="2020-10-18",
+    before="2022-02-25",
+    limit=10,
+)
+
+for invoice in invoices:
+    print(invoice)
+    
+breakpoint()
