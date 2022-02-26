@@ -5,12 +5,11 @@ from src.authentication import user
 starkbank.user = user
 
 webhook_invoice = starkbank.webhook.create(
-    url="https://fe9a-2804-431-c7c7-ecb1-f5a3-14ea-2781-3d83.ngrok.io",
+    url="https://6b01-2804-431-c7c6-6080-58ee-4529-7e59-a0e0.ngrok.io",
     subscriptions=[
         "invoice",
     ]
 )
 
 print(webhook_invoice)
-
 

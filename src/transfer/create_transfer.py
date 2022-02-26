@@ -18,3 +18,5 @@ def transfer(amount):
         )
     ])
 
+if __name__ == '__main__':
+    transfer(1000)
