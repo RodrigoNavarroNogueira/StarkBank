@@ -1,36 +1,20 @@
-from datetime import datetime, timedelta
+from flask import Flask, request, abort
 
-import starkbank
+from src.document import discount
 
-from src.authentication import user
+from src.transfer.create_transfer import transfer
 
-starkbank.user = user
 
-invoices = starkbank.invoice.create([
-    starkbank.Invoice(
-        amount=248,
-        descriptions=[{'key': 'Arya', 'value': 'Not today'}],
-        discounts=[{'percentage': 10, 'due': datetime.now()+timedelta(days=10)}],
-        due=datetime.now()+timedelta(days=10),
-        expiration=123456789,
-        fine=2.5,
-        interest=1.3,
-        name="Ed Supremo",
-        tags=['New sword', 'Invoice #1234'],
-        tax_id="29.176.331/0001-69"
-    )
-])
+app = Flask(__name__)
 
-#for invoice in invoices:
-#   print(invoice)
+@app.route('/', methods=['POST'])
+def main():
+    response = request.get_json()
+    amount = discount(response)
+    result = transfer(amount) 
+    return 200, abort(400)
+        
 
-invoices = starkbank.invoice.query(
-    after="2020-10-18",
-    before="2022-02-25",
-    limit=10,
-)
 
-for invoice in invoices:
-    print(invoice)
-    
-breakpoint()
+
+app.run()

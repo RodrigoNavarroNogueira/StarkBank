@@ -6,11 +6,11 @@ from src.authentication import user
 
 starkbank.user = user
 
-invoices = starkbank.invoice.query(
-    after="2020-10-18",
+logs = starkbank.invoice.log.query(
+    after="2020-01-01",
     before=datetime.now(),
-    limit=10,
+    limit=10
 )
 
-for invoice in invoices:
-    print(invoice)
+for log in logs:
+    print(log)
