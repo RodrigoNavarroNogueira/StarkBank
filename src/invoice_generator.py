@@ -1,13 +1,13 @@
 from datetime import datetime, timedelta
 from time import sleep, time
 from random import randint
-
+from src.invoice.create_invoices import create_invoice
 import logging
 
 
 def __get_initial_and_limit_time():
     now = datetime.now()
-    return now, now + timedelta(seconds=15)
+    return now, now + timedelta(minutes=1)
 
 
 def __roll_invoice_quantity_per_period():
@@ -32,6 +32,7 @@ def __create_invoice_time_moments(time_range):
 
 
 def __create_invoice(moment):
+    create_invoice()
     logging.info(
         f'Invoice {datetime.fromtimestamp(moment)} created at {datetime.now()}'
     )
@@ -59,7 +60,7 @@ def run_a_schedule():
 
 
 def scheduler():
-    end = datetime.now() + timedelta(minutes=1)
+    end = datetime.now() + timedelta(hours=24)
     logging.info('Started scheduler')
 
     while datetime.now() < end:
