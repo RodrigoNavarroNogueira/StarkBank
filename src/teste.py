@@ -1,18 +1,25 @@
 import random
+from time import sleep, time
+import starkbank
+from datetime import datetime, timedelta
+from src.authentication import user
+
+starkbank.user = user
 
 
-def cpf():
-    def calcula_digito(digs):
-        s = 0
-        qtd = len(digs)
-        for i in range(qtd):
-            s += n[i] * (1+qtd-i)
-        res = 11 - s % 11
-        if res >= 10: return 0
-        return res                                                                              
-    n = [random.randrange(10) for i in range(9)]
-    n.append(calcula_digito(n))
-    n.append(calcula_digito(n))
-    return "%d%d%d.%d%d%d.%d%d%d-%d%d" % tuple(n)
+invoices = starkbank.invoice.create([
+    starkbank.Invoice(
+        amount=248,
+        descriptions=[{'key': 'Arya', 'value': 'Not today'}],
+        discounts=[{'percentage': 10, 'due': datetime.now()+timedelta(days=10)}],
+        due=datetime.now()+timedelta(days=10),
+        expiration=123456789,
+        fine=2.5,
+        interest=1.3,
+        name="Arya Stark",
+        tags=['New sword', 'Invoice #1234'],
+        tax_id="29.176.331/0001-69"
+    )
+])
 
-print(cpf())
+breakpoint()

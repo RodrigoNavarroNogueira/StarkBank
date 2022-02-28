@@ -1,5 +1,5 @@
-
 import starkbank
+
 from src.utils.settings import PRIVATE_KEY, USER_ID
 
 private_key_content = f"""

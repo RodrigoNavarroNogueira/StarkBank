@@ -1,6 +1,7 @@
 import starkbank
 
 from src.authentication import user
+from src.transfer.data_transfer_generator import create_external_id
 
 starkbank.user = user
 
@@ -13,10 +14,10 @@ def transfer(amount):
             bank_code="20018183",
             branch_code="0001",
             account_number="6341320293482496",
-            external_id="my-external-id",
+            external_id=create_external_id(),
             tags=["daenerys", "invoice/1234"]
         )
     ])
 
 if __name__ == '__main__':
-    transfer(1000)
+    transfer(37620000)
